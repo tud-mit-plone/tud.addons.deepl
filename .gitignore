@@ -1,0 +1,27 @@
+*~
+
+###Plone###
+*.pyc
+*.pyo
+*.tmp*
+*.mo
+*.egg
+*.EGG
+*.egg-info
+*.EGG-INFO
+/.eggs/
+.sass-cache/
+
+###Visual Studio Code###
+/.history
+/.vscode
+*.code-workspace
+
+###Eclipse###
+*.project
+*.pydevproject
+*.settings
+
+###Pycharm###
+/*.iml
+/.idea

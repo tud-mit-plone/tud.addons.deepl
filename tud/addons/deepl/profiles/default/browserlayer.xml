@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layers>
+  <layer
+      name="tud.addons.deepl"
+      interface="tud.addons.deepl.interfaces.ITudAddonsDeeplLayer"
+      />
+</layers>
