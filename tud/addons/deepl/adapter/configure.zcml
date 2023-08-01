@@ -1,0 +1,13 @@
+<configure
+    xmlns           = "http://namespaces.zope.org/zope"
+    xmlns:browser   = "http://namespaces.zope.org/browser"
+    i18n_domain     = "tud.addons.deepl">
+
+    <adapter
+        name="deeplapi"
+        for="tud.addons.deepl.content.fisbox.FISBox *"
+        provides="tud.addons.deepl.interfaces.IDeepLAPI"
+        factory=".deepl_api.FISAPI"
+    />
+
+</configure>
