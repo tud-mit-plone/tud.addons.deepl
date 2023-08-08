@@ -18,13 +18,15 @@ from tud.addons.deepl.interfaces import IDeepLAPI
 
 
 class DeepLAPI:
-    """Adapter for communicating with with the FIS API."""
+    """Utility for communicating with the DeepL API."""
 
     implements(IDeepLAPI)
 
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
+    def __init__(self):
+        pass
+
+    def translate(self, text, source_lang="de", destination_lang="en"):
+        return "translated text"
 
     # def _create_entry(self, entity_data, entity_type):
     #     """Helper to manifacture a select2 compatible entry with a human
