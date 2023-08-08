@@ -13,7 +13,9 @@
   -->
   <!--<includeDependencies package="." />-->
 
+  <include package=".adapter" />
   <include package=".browser" />
+  <include package=".api" />
 
   <include file="permissions.zcml" />
 
