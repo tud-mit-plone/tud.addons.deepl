@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <registry>
-<!-- -*- extra stuff goes here -*- -->
-
+    <records interface="tud.addons.deepl.interfaces.IDeepLAPISettings">
+    </records>
 </registry>

@@ -3,4 +3,4 @@
 from zope.i18nmessageid import MessageFactory
 
 
-_ = MessageFactory('tud.addons.deepl')
+DeepLAPIMessageFactory = MessageFactory('tud.addons.deepl')
