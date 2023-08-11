@@ -13,4 +13,13 @@
         permission="zope2.View"
       />
 
+    <plone:service
+        for="*"
+        method="GET"
+        accept="application/json"
+        factory=".deepl_service.DeepLTranslateServiceUsage"
+        name="deepl_usage"
+        permission="zope2.View"
+      />
+
 </configure>
