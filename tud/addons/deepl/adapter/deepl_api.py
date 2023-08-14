@@ -7,6 +7,7 @@ from zope.component import getUtility
 from zope.interface import implements
 
 
+from tud.addons.deepl import logger
 from tud.addons.deepl import DeepLAPIMessageFactory as _
 from tud.addons.deepl.interfaces import IDeepLAPI
 from tud.addons.deepl.interfaces import IDeepLAPISettings
@@ -71,7 +72,7 @@ class DeepLAPI(object):
                 "source_lang": source_language,
                 "target_lang": target_language,
                 "text": text,
-                "tag_handling": "xml",
+                "tag_handling": "html",
                 "split_sentences": "nonewlines",
             }
         )
@@ -105,5 +106,7 @@ class DeepLAPIError(Exception):
 
     def __call__(self, message):
         self.message = message
+
+        logger.exception("DeepL API error: ".format(self.message))
 
         return super().__call__(self.message)
