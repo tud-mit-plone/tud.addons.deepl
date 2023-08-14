@@ -15,37 +15,42 @@ class TudAddonsDeeplLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
+        # call super setUpZope
+        super(TudAddonsDeeplLayer, self).setUpZope(app, configurationContext)
+
         # Load any other ZCML that is required for your tests.
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
-        import plone.app.dexterity
-        self.loadZCML(package=plone.app.dexterity)
-        import plone.restapi
-        self.loadZCML(package=plone.restapi)
-        self.loadZCML(package=tud.addons.deepl)
+        # import plone.app.dexterity
+        # self.loadZCML(package=plone.app.dexterity)
+        import plone.rest
+        self.loadZCML(package=plone.rest)
+
+        self.loadZCML(name="testing.zcml", package=tud.addons.deepl)
+        z2.installProduct(app, "tud.addons.deepl")
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'tud.addons.deepl:default')
+        applyProfile(portal, 'tud.addons.deepl:test')
 
 
-TUD_ADDONS_DEEPL_FIXTURE = TudAddonsDeeplLayer()
+FIXTURE = TudAddonsDeeplLayer()
 
 
 TUD_ADDONS_DEEPL_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(TUD_ADDONS_DEEPL_FIXTURE,),
+    bases=(FIXTURE,),
     name='TudAddonsDeeplLayer:IntegrationTesting',
 )
 
 
 TUD_ADDONS_DEEPL_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(TUD_ADDONS_DEEPL_FIXTURE,),
+    bases=(FIXTURE,),
     name='TudAddonsDeeplLayer:FunctionalTesting',
 )
 
 
 TUD_ADDONS_DEEPL_ACCEPTANCE_TESTING = FunctionalTesting(
     bases=(
-        TUD_ADDONS_DEEPL_FIXTURE,
+        FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         z2.ZSERVER_FIXTURE,
     ),
