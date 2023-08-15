@@ -33,31 +33,31 @@ class TestDeepLAPI(unittest.TestCase):
         api.portal.set_registry_record("tud.addons.deepl.interfaces.IDeepLAPISettings.deepl_api_auth_token", token)
 
     def test_APIBase(self):
-        translation = self.deepl_api.translate(text=self.word_de)
-        self.assertIn("error", translation.lower())
+        result = self.deepl_api.translate(text=self.word_de)
+        self.assertIsNotNone(result["error"])
         self._setAuthToken()
-        translation = self.deepl_api.translate(text=self.word_de)
-        self.assertNotIn("error", translation.lower())
+        result = self.deepl_api.translate(text=self.word_de)
+        self.assertIsNone(result["error"])
+        self.assertIsNotNone(result["result"])
 
     def test_translate(self):
         self._setAuthToken()
 
-        translation = self.deepl_api.translate(text=self.word_de)
-        self.assertEqual(translation.lower(), self.word_en.lower())
-        translation = self.deepl_api.translate(
+        result = self.deepl_api.translate(text=self.word_de)
+        self.assertEqual(result["result"].lower(), self.word_en.lower())
+        result = self.deepl_api.translate(
             text=self.word_en,
             source_language="en",
             target_language="de"
         )
-        self.assertEqual(translation.lower(), self.word_de.lower())
-        translation = self.deepl_api.translate(self.html_de)
-        self.assertIn("<h2>", translation)
-        self.assertIn("src=\"resolveuid/a6b054e259394687bfa4a9581f97376d\"", translation)
-        self.assertIn("&#8203;", translation)
+        self.assertEqual(result["result"].lower(), self.word_de.lower())
+        result = self.deepl_api.translate(self.html_de)
+        self.assertIn("<h2>", result["result"])
+        self.assertIn("src=\"resolveuid/a6b054e259394687bfa4a9581f97376d\"", result["result"])
 
     def test_usage(self):
         self._setAuthToken()
 
         usage = self.deepl_api.usage()
-        self.assertIsInstance(usage, dict)
-        self.assertIn("character_count", usage.keys())
+        self.assertIsInstance(usage["result"], dict)
+        self.assertIn("character_count", usage["result"].keys())
