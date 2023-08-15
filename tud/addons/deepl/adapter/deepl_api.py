@@ -6,7 +6,6 @@ from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from zope.interface import implements
 
-
 from tud.addons.deepl import logger
 from tud.addons.deepl import DeepLAPIMessageFactory as _
 from tud.addons.deepl.interfaces import IDeepLAPI
@@ -32,27 +31,39 @@ class DeepLAPI(object):
         auth_token = settings.deepl_api_auth_token
 
         if not api_url:
-            raise DeepLAPIError("Error: DeepL API URL is not set")
+            raise DeepLAPIError("DeepL API URL is not set")
         elif api_url[-1] != "/":
             api_url += "/"
         if not auth_token:
-            raise DeepLAPIError("Error: DeepL API authentication token is not set")
+            raise DeepLAPIError("DeepL API authentication token is not set")
         else:
             auth_token = "DeepL-Auth-Key {}".format(auth_token)
 
-        result = requests.get(
-            "{}{}".format(api_url, endpoint),
-            params=params,
-            timeout=api_timeout,
-            headers={"Authorization": auth_token},
-        )
+        try:
+            result = requests.get(
+                "{}{}".format(api_url, endpoint),
+                params=params,
+                timeout=api_timeout,
+                headers={"Authorization": auth_token},
+            )
+        except requests.exceptions.ConnectionError:
+            raise DeepLAPIError("Can not connect to DeepL API URL")
 
         if result.status_code == 403:
-            raise DeepLAPIError("Error: Authentication token was not accepted (status code {})".format(result.status_code))
+            raise DeepLAPIError(
+                "Authentication token was not accepted",
+                result.status_code
+            )
         elif result.status_code == 456:
-            raise DeepLAPIError("Error: Translation quota exeeded (status code {})".format(result.status_code))
+            raise DeepLAPIError(
+                "Translation quota exeeded",
+                result.status_code,
+            )
         elif not result.ok:
-            raise DeepLAPIError("Error: Deepl API request returns with status code {}".format(result.status_code))
+            raise DeepLAPIError(
+                "Deepl API request returns with an error",
+                result.status_code,
+            )
 
         return result.json()
 
@@ -80,12 +91,24 @@ class DeepLAPI(object):
         try:
             result = self._callDeepLAPI(endpoint="translate", params=params)
         except DeepLAPIError as e:
-            return e.message
+            return {
+                "error": e.message,
+                "result": None,
+                "status_code": e.status_code
+            }
 
         if result.has_key("translations"):
-            return result["translations"][0]["text"]
+            return {
+                "error": None,
+                "result": result["translations"][0]["text"],
+                "status_code": 200
+            }
         else:
-            return "Error: Result does not contain translated text"
+            return {
+                "error": "Result does not contain translated text",
+                "result": None,
+                "status_code": 500
+            }
 
     def usage(self):
         """Returns usage information within the current billing period together with the corresponding account limits.
@@ -95,18 +118,26 @@ class DeepLAPI(object):
         try:
             result = self._callDeepLAPI(endpoint="usage")
         except DeepLAPIError as e:
-            return e.message
+            return {
+                "error": e.message,
+                "result": None,
+                "status_code": e.status_code
+            }
 
-        return result
+        return {
+            "error": None,
+            "result": result,
+            "status_code": 200
+        }
 
 
 class DeepLAPIError(Exception):
     """This exception is thrown when communicating with the DeepL API and an error occures.
     """
 
-    def __call__(self, message):
+    def __init__(self, message, status_code=None):
+        super(DeepLAPIError, self).__init__(message)
         self.message = message
+        self.status_code = status_code if status_code else 500
 
-        logger.exception("DeepL API error: ".format(self.message))
-
-        return super().__call__(self.message)
+        logger.exception("DeepLAPIError: {} (status code: {})".format(self.message, self.status_code))

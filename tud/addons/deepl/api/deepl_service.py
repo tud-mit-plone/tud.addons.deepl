@@ -28,7 +28,14 @@ class DeepLTranslateService(Service):
             target_language=target_lang
         )
 
-        return json.dumps(result)
+        if result["error"]:
+            if result["status_code"]:
+                self.request.response.setStatus(result["status_code"])
+                self.request.response.setBody(json.dumps(result))
+            else:
+                raise Exception(result["error"])
+        else:
+            return json.dumps(result)
 
 
 class DeepLTranslateServiceUsage(Service):
