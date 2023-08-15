@@ -36,3 +36,9 @@ class IDeepLAPISettings(Interface):
         required=True,
         default=u"",
     )
+
+    deepl_api_glossary_id = schema.TextLine(
+        title=_(u"deepl_api_glossary_id", default=u"ID of the glossary"),
+        required=False,
+        default=u"",
+    )

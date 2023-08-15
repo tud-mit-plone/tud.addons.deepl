@@ -88,6 +88,10 @@ class DeepLAPI(object):
             }
         )
 
+        settings = getUtility(IRegistry).forInterface(IDeepLAPISettings)
+        if settings.deepl_api_glossary_id:
+            params["glossary_id"] = settings.deepl_api_glossary_id
+
         try:
             result = self._callDeepLAPI(endpoint="translate", params=params)
         except DeepLAPIError as e:
