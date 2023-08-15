@@ -5,7 +5,9 @@
 
   <configure zcml:condition="installed AccessControl.security">
   <!-- -*- extra stuff goes here -*- -->
-
+    <permission id="tud.addons.deepl.requestDeepLAPI"
+                title="tud.addons.deepl: Request DeepL API"
+    />
 
   </configure>
 

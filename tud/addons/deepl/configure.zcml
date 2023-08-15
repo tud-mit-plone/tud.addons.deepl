@@ -13,11 +13,11 @@
   -->
   <!--<includeDependencies package="." />-->
 
+  <include file="permissions.zcml" />
+
   <include package=".adapter" />
   <include package=".browser" />
   <include package=".api" />
-
-  <include file="permissions.zcml" />
 
   <genericsetup:registerProfile
       name="default"
