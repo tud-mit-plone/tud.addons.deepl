@@ -7,7 +7,6 @@ from zope.component import getUtility
 from zope.interface import implements
 
 from tud.addons.deepl import logger
-from tud.addons.deepl import DeepLAPIMessageFactory as _
 from tud.addons.deepl.interfaces import IDeepLAPI
 from tud.addons.deepl.interfaces import IDeepLAPISettings
 

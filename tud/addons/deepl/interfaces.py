@@ -4,7 +4,7 @@ from zope import schema
 from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
-from tud.addons.deepl import DeepLAPIMessageFactory as _
+from tud.addons.deepl import _
 
 
 class ITudAddonsDeeplLayer(IDefaultBrowserLayer):
