@@ -1,72 +1,148 @@
-.. This README is meant for consumption by humans and pypi. Pypi can render rst files so please do not use Sphinx features.
-   If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide.html
-   This text does not appear on pypi or github. It is a comment.
+# tud.addons.deepl - Automatic Translation Add-on for Plone
 
-================
-tud.addons.deepl
-================
+The `tud.addons.deepl` is a Plone add-on that leverages the DeepL API to provide automatic translations for texts in Plone websites.
+This add-on aims to make it easier for Plone integrators to offer seamless and efficient translations to a wide range of different languages.
+It integrates with the DeepL API to provide high-quality translations that can enhance the accessibility and reach of your Plone site's content.
+For more details on the capabilities of the DeepL API please refer to the [DeepL API docs](https://www.deepl.com/en/docs-api/).
 
-Tell me what your product does
+## Features
 
-Features
---------
+- Automatic Translation: The add-on seamlessly integrates with the DeepL API to provide automatic translations for your Plone content. This helps you quickly generate translations for your content without the need for manual intervention.
 
-- Can be bullet points
+- Glossary Support: Utilizing the glossary feature of DeepL, this add-on allows you to add custom translations for specific words or phrases. This is particularly useful in domains with specialized lingo or terminology, ensuring accurate and consistent translations.
 
+- Wide Language Support: DeepL supports translations for a wide variety of languages. With this add-on, you can offer translations to your users in multiple languages, thereby improving the user experience and making your content more accessible globally.
 
-Examples
---------
+- Contributor's Flexibility: The tud.addons.deepl add-on provides contributors with the flexibility to implement meaningful integrations. Contributors can choose to create a user-interface for editors to initiate translations, develop utility scripts for translating content at specific intervals, or implement dynamic translation of pages on every page load. The add-on serves as a foundation for implementing the translation process according to your specific use case.
 
-This add-on can be seen in action at the following sites:
-- Is there a page on the internet where everybody can see the features?
+## Installation
 
+1. Make sure you have a working instance of Plone version 4.3.19.
 
-Documentation
--------------
+2. In your Plone instance, add `tud.addons.deepl` to your buildout configuration.
 
-Full documentation for end users can be found in the "docs" folder, and is also available online at http://docs.plone.org/foo/bar
+   ```ini
+   [buildout]
+   ...
+   eggs =
+       ...
+       tud.addons.deepl
+   ```
 
+3. Run buildout to install the add-on.
 
-Translations
-------------
+   ```bash
+   $ ./bin/buildout
+   ```
 
-This product has been translated into
+4. Go to the Plone control panel and navigate to the Registry section.
 
-- Klingon (thanks, K'Plai)
+5. Search for the `IDeepLAPISettings` entry.
 
+6. Enter your DeepL API credentials (API key) in the provided fields.
 
-Installation
-------------
+7. Configure translation settings according to your preferences (e.g. glossary ID).
 
-Install tud.addons.deepl by adding it to your buildout::
+8.  Save the settings.
 
-    [buildout]
+## Usage
 
-    ...
+Once the add-on is installed and configured, it provides multiple endpoints:
 
-    eggs =
-        tud.addons.deepl
+### deepl_translate
 
+This endpoint is used for translating a given text from a source language to a target language.
 
-and then running ``bin/buildout``
+- Method: POST
+- Header:
+  - Accept: application/json
+- Parameter (body, form-data)
+  - text (required): text to be translated
+  - source_language (optional, defaults to "en"): source language of the given text (e.g. "en", "de", "it")
+  - target_language (optional, defaults to "de"): desired target language
+  - glossary_id (optional): glossary use in translation
+- Permission required:
+  - tud.addons.deepl: Request DeepL API (tud.addons.deepl.requestDeepLAPI)
 
+A potential curl command would look this:
 
-Contribute
-----------
+```bash
+curl --location 'http://localhost:8080/Plone/deepl_translate' \
+--header 'Accept: application/json' \
+--form 'source_language="en"' \
+--form 'target_language="de"' \
+--form 'text="Hello, I am a sample sentence. Please translate me."'
+```
 
-- Issue Tracker: https://github.com/collective/tud.addons.deepl/issues
-- Source Code: https://github.com/collective/tud.addons.deepl
-- Documentation: https://docs.plone.org/foo/bar
+The response is returned as JSON:
 
+```json
+{"status_code": 200, "result": "Hallo! Ich bin ein Beispielsatz. Bitte übersetze mich.", "error": null}
+```
 
-Support
--------
+> **_NOTE:_**  The status code in the JSON is identical to the actual HTTP response code.
 
-If you are having issues, please let us know.
-We have a mailing list located at: project@example.com
+Please note that the accuracy and quality of translations may vary depending on the source content and the languages involved.
+It's recommended to review and adjust translations as needed.
 
+### deepl_usage
 
-License
--------
+This endpoint gives you insight about the current character usage according to your selected plan for DeepL API.
 
-The project is licensed under the GPLv2.
+- Method: GET
+- Header:
+  - Accept: application/json
+- Permission required:
+  - tud.addons.deepl: Request DeepL API (tud.addons.deepl.requestDeepLAPI)
+
+A potential curl command would look this:
+
+```bash
+curl --location 'http://localhost:8080/TUDBaumpate/deepl_usage' \
+--header 'Accept: application/json' \
+```
+
+The response is returned as JSON:
+
+```json
+{"status_code": 200, "result": {"character_count": 123, "character_limit": 500000}, "error": null}
+```
+
+> **_NOTE:_**  The status code in the JSON is identical to the actual HTTP response code.
+
+## Permissions
+
+Every endpoint can only be accessed via the permission "tud.addons.deepl: Request DeepL API".
+By default this permission is granted to the Member role.
+It can be granted to the Anonymous role (like done in the curl command), but note that this might attract unwanted API consumers.
+
+## Testing
+
+The `tud.addons.deepl` add-on includes a suite of tests to ensure its functionality and compatibility with Plone version 4.3.19.
+To run the tests, follow these steps:
+
+1. Activate the Plone testing environment.
+
+   ```bash
+   $ DEEPL_API_TOKEN=my-secret ./bin/instance test -s tud.addons.deepl
+   ```
+
+2. The tests will be executed, and the results will be displayed in the terminal.
+
+## Dependencies to other add-ons:
+
+- plone.rest
+- plone.api
+
+## Contributing
+
+If you encounter any issues, have suggestions, or would like to contribute to the development of `tud.addons.deepl`, feel free to open an issue or submit a pull request on the [GitHub repository](https://github.com/tud-mit-plone/tud.addons.deepl).
+
+## License
+
+This add-on is released under the [MIT License](https://opensource.org/licenses/MIT).
+
+---
+
+By utilizing the `tud.addons.deepl` add-on, Plone integrators can enhance their websites with automatic translations, making their content accessible to a wider audience. The integration with the DeepL API streamlines the translation process and ensures high-quality translations for a better user experience.
+
