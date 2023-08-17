@@ -43,7 +43,7 @@ For more details on the capabilities of the DeepL API please refer to the [DeepL
 
 7. Configure translation settings according to your preferences (e.g. glossary ID).
 
-8.  Save the settings.
+8. Save the settings.
 
 ## Usage
 
@@ -60,7 +60,6 @@ This endpoint is used for translating a given text from a source language to a t
   - text (required): text to be translated
   - source_language (optional, defaults to "en"): source language of the given text (e.g. "en", "de", "it")
   - target_language (optional, defaults to "de"): desired target language
-  - glossary_id (optional): glossary use in translation
 - Permission required:
   - tud.addons.deepl: Request DeepL API (tud.addons.deepl.requestDeepLAPI)
 
@@ -142,7 +141,4 @@ If you encounter any issues, have suggestions, or would like to contribute to th
 
 This add-on is released under the [MIT License](https://opensource.org/licenses/MIT).
 
----
-
-By utilizing the `tud.addons.deepl` add-on, Plone integrators can enhance their websites with automatic translations, making their content accessible to a wider audience. The integration with the DeepL API streamlines the translation process and ensures high-quality translations for a better user experience.
 
