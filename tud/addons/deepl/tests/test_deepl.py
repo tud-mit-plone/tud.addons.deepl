@@ -28,9 +28,19 @@ class TestDeepLAPI(unittest.TestCase):
         self.request = self.layer["request"]
         self.deepl_api = DeepLAPI()
 
+        token = os.getenv("DEEPL_API_TOKEN", None)
+        self.assertIsNotNone(
+            token,
+            "You have to set an authorization token for the Deepl API using the DEEPL_API_TOKEN environment variable."
+        )
+        self.token = unicode(token)
+
+        api_url = os.getenv("DEEPL_API_URL", None)
+        if api_url:
+            api.portal.set_registry_record("tud.addons.deepl.interfaces.IDeepLAPISettings.deepl_api_url", unicode(api_url))
+
     def _setAuthToken(self):
-        token = unicode(os.getenv("DEEPL_API_TOKEN", "empty_token"))
-        api.portal.set_registry_record("tud.addons.deepl.interfaces.IDeepLAPISettings.deepl_api_auth_token", token)
+        api.portal.set_registry_record("tud.addons.deepl.interfaces.IDeepLAPISettings.deepl_api_auth_token", self.token)
 
     def test_APIBase(self):
         result = self.deepl_api.translate(text=self.word_de)
