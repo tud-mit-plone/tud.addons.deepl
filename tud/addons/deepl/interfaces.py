@@ -10,13 +10,14 @@ from tud.addons.deepl import _
 class ITudAddonsDeeplLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
+
 class IDeepLAPI(Interface):
-    """Interface to retrieve data from the DeepL API.
-    """
+    """Interface to retrieve data from the DeepL API."""
+
 
 class IDeepLAPISettings(Interface):
-    """Settings schema for the DeepL API.
-    """
+    """Settings schema for the DeepL API."""
+
     deepl_api_url = schema.TextLine(
         title=_(u"deepl_api_url", default=u"URL of DeepL API without endpoint"),
         required=True,

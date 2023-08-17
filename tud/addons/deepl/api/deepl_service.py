@@ -5,6 +5,7 @@ from zope.component import getUtility
 
 from tud.addons.deepl.interfaces import IDeepLAPI
 
+
 class DeepLTranslateService(Service):
     """Service that uses the Deepl API Utility to translate a text. It accepts POST requests with the arguments text,
     source_language and target_language.
@@ -21,11 +22,7 @@ class DeepLTranslateService(Service):
             return "Error: empty text"
 
         deepl_api = getUtility(IDeepLAPI, "deeplapi")
-        result = deepl_api.translate(
-            text=text,
-            source_language=source_lang,
-            target_language=target_lang
-        )
+        result = deepl_api.translate(text=text, source_language=source_lang, target_language=target_lang)
 
         if result["error"]:
             if result["status_code"]:
@@ -38,8 +35,7 @@ class DeepLTranslateService(Service):
 
 
 class DeepLTranslateServiceUsage(Service):
-    """Service to query the current usage status of the DeepL API account.
-    """
+    """Service to query the current usage status of the DeepL API account."""
 
     def render(self):
         self.request.response.setHeader("Content-Type", "application/json")

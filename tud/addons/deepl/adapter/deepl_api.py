@@ -49,10 +49,7 @@ class DeepLAPI(object):
             raise DeepLAPIError("Can not connect to DeepL API URL")
 
         if result.status_code == 403:
-            raise DeepLAPIError(
-                "Authentication token was not accepted",
-                result.status_code
-            )
+            raise DeepLAPIError("Authentication token was not accepted", result.status_code)
         elif result.status_code == 456:
             raise DeepLAPIError(
                 "Translation quota exeeded",
@@ -94,24 +91,12 @@ class DeepLAPI(object):
         try:
             result = self._callDeepLAPI(endpoint="translate", params=params)
         except DeepLAPIError as e:
-            return {
-                "error": e.message,
-                "result": None,
-                "status_code": e.status_code
-            }
+            return {"error": e.message, "result": None, "status_code": e.status_code}
 
         if result.has_key("translations"):
-            return {
-                "error": None,
-                "result": result["translations"][0]["text"],
-                "status_code": 200
-            }
+            return {"error": None, "result": result["translations"][0]["text"], "status_code": 200}
         else:
-            return {
-                "error": "Result does not contain translated text",
-                "result": None,
-                "status_code": 500
-            }
+            return {"error": "Result does not contain translated text", "result": None, "status_code": 500}
 
     def usage(self):
         """Returns usage information within the current billing period together with the corresponding account limits.
@@ -121,22 +106,13 @@ class DeepLAPI(object):
         try:
             result = self._callDeepLAPI(endpoint="usage")
         except DeepLAPIError as e:
-            return {
-                "error": e.message,
-                "result": None,
-                "status_code": e.status_code
-            }
+            return {"error": e.message, "result": None, "status_code": e.status_code}
 
-        return {
-            "error": None,
-            "result": result,
-            "status_code": 200
-        }
+        return {"error": None, "result": result, "status_code": 200}
 
 
 class DeepLAPIError(Exception):
-    """This exception is thrown when communicating with the DeepL API and an error occures.
-    """
+    """This exception is thrown when communicating with the DeepL API and an error occures."""
 
     def __init__(self, message, status_code=None):
         super(DeepLAPIError, self).__init__(message)

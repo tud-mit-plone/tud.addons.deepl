@@ -23,13 +23,14 @@ class TudAddonsDeeplLayer(PloneSandboxLayer):
         # import plone.app.dexterity
         # self.loadZCML(package=plone.app.dexterity)
         import plone.rest
+
         self.loadZCML(package=plone.rest)
 
         self.loadZCML(name="testing.zcml", package=tud.addons.deepl)
         z2.installProduct(app, "tud.addons.deepl")
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'tud.addons.deepl:test')
+        applyProfile(portal, "tud.addons.deepl:test")
 
 
 FIXTURE = TudAddonsDeeplLayer()
@@ -37,13 +38,13 @@ FIXTURE = TudAddonsDeeplLayer()
 
 TUD_ADDONS_DEEPL_INTEGRATION_TESTING = IntegrationTesting(
     bases=(FIXTURE,),
-    name='TudAddonsDeeplLayer:IntegrationTesting',
+    name="TudAddonsDeeplLayer:IntegrationTesting",
 )
 
 
 TUD_ADDONS_DEEPL_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FIXTURE,),
-    name='TudAddonsDeeplLayer:FunctionalTesting',
+    name="TudAddonsDeeplLayer:FunctionalTesting",
 )
 
 
@@ -53,5 +54,5 @@ TUD_ADDONS_DEEPL_ACCEPTANCE_TESTING = FunctionalTesting(
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         z2.ZSERVER_FIXTURE,
     ),
-    name='TudAddonsDeeplLayer:AcceptanceTesting',
+    name="TudAddonsDeeplLayer:AcceptanceTesting",
 )
