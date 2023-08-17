@@ -1,6 +1,3 @@
-# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -15,7 +12,7 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: tud.addons.deepl\n"
+"Domain: DOMAIN\n"
 
 #: ./configure.zcml:29
 msgid "Installs the tud.addons.deepl add-on."
@@ -32,27 +29,27 @@ msgstr ""
 #. Default: "Authentication key for the DeepL API"
 #: ./interfaces.py:35
 msgid "deepl_api_auth_token"
-msgstr ""
+msgstr "Authentifizierungsschlüssel für die DeepL API"
 
 #. Default: "ID of the glossary"
 #: ./interfaces.py:41
 msgid "deepl_api_glossary_id"
-msgstr ""
+msgstr "ID des Glossars"
 
 #. Default: "Connect/Read timeout for the remote connection to the DeepL API"
 #: ./interfaces.py:28
 msgid "deepl_api_timeout"
-msgstr ""
+msgstr "Verbindungs/Lese-Timeout bei der Remote-Verbindung zur DeepL API"
 
 #. Default: "Time in seconds; should be between 3 and 10"
 #: ./interfaces.py:29
 msgid "deepl_api_timeout_desc"
-msgstr ""
+msgstr "Zeit in Sekunden; sollte zwischen 3 und 10 liegen"
 
 #. Default: "URL of DeepL API without endpoint"
 #: ./interfaces.py:22
 msgid "deepl_api_url"
-msgstr ""
+msgstr "URL der DeepL API ohne Endpunkt"
 
 #: ./configure.zcml:29
 msgid "tud.addons.deepl"
