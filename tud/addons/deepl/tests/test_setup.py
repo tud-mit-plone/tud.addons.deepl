@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Setup tests for this package."""
 from tud.addons.deepl.testing import TUD_ADDONS_DEEPL_INTEGRATION_TESTING  # noqa: E501
 from plone import api
