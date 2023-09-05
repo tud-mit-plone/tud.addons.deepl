@@ -1,3 +1,7 @@
+import os
+import transaction
+
+from plone import api
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import FunctionalTesting
@@ -31,6 +35,11 @@ class TudAddonsDeeplLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "tud.addons.deepl:test")
+
+        token = os.getenv("DEEPL_API_TOKEN", None)
+        api.portal.set_registry_record("tud.addons.deepl.interfaces.IDeepLAPISettings.deepl_api_auth_token", unicode(token))
+
+        transaction.commit()
 
 
 FIXTURE = TudAddonsDeeplLayer()

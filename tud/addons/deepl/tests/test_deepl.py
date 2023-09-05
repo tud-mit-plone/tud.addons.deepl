@@ -29,33 +29,18 @@ class TestDeepLAPI(unittest.TestCase):
         self.request = self.layer["request"]
         self.deepl_api = DeepLAPI()
 
-        token = os.getenv("DEEPL_API_TOKEN", None)
-        self.assertIsNotNone(
-            token,
-            "You have to set an authorization token for the Deepl API using the DEEPL_API_TOKEN environment variable.",
-        )
-        self.token = unicode(token)
-
         api_url = os.getenv("DEEPL_API_URL", None)
         if api_url:
             api.portal.set_registry_record(
                 "tud.addons.deepl.interfaces.IDeepLAPISettings.deepl_api_url", unicode(api_url)
             )
 
-    def _setAuthToken(self):
-        api.portal.set_registry_record("tud.addons.deepl.interfaces.IDeepLAPISettings.deepl_api_auth_token", self.token)
-
     def test_APIBase(self):
-        result = self.deepl_api.translate(text=self.word_de)
-        self.assertIsNotNone(result["error"])
-        self._setAuthToken()
         result = self.deepl_api.translate(text=self.word_de)
         self.assertIsNone(result["error"])
         self.assertIsNotNone(result["result"])
 
     def test_translate(self):
-        self._setAuthToken()
-
         result = self.deepl_api.translate(text=self.word_de)
         self.assertEqual(result["result"].lower(), self.word_en.lower())
         result = self.deepl_api.translate(text=self.word_en, source_language="en", target_language="de")
@@ -65,8 +50,6 @@ class TestDeepLAPI(unittest.TestCase):
         self.assertIn('src="resolveuid/a6b054e259394687bfa4a9581f97376d"', result["result"])
 
     def test_usage(self):
-        self._setAuthToken()
-
         usage = self.deepl_api.usage()
         self.assertIsInstance(usage["result"], dict)
         self.assertIn("character_count", usage["result"].keys())
