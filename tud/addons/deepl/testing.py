@@ -35,8 +35,7 @@ class TudAddonsDeeplLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "tud.addons.deepl:test")
-
-        token = os.getenv("DEEPL_API_TOKEN", None)
+        token = os.getenv("DEEPL_API_TOKEN", "")
         api.portal.set_registry_record("tud.addons.deepl.interfaces.IDeepLAPISettings.deepl_api_auth_token", unicode(token))
 
         transaction.commit()
