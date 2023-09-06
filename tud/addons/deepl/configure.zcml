@@ -14,8 +14,10 @@
   -->
   <!--<includeDependencies package="." />-->
 
-<five:registerPackage
+  <five:registerPackage
     package             = "." />
+
+  <include package="plone.rest" file="meta.zcml"/>
 
   <include file="permissions.zcml" />
 
