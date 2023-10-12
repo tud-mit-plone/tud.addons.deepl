@@ -11,6 +11,7 @@
         factory=".deepl_service.DeepLTranslateService"
         name="deepl_translate"
         permission="tud.addons.deepl.requestDeepLAPI"
+        layer="tud.addons.deepl.interfaces.ITudAddonsDeeplLayer"
       />
 
     <plone:service
@@ -20,6 +21,7 @@
         factory=".deepl_service.DeepLTranslateServiceUsage"
         name="deepl_usage"
         permission="tud.addons.deepl.requestDeepLAPI"
+        layer="tud.addons.deepl.interfaces.ITudAddonsDeeplLayer"
       />
 
 </configure>
