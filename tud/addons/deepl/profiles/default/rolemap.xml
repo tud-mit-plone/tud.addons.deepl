@@ -8,6 +8,7 @@
       <role name="Section Administrator"/>
       <role name="Reviewer"/>
       <role name="Editor"/>
+      <role name="Member"/>
     </permission>
   </permissions>
 </rolemap>
