@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <!-- -*- extra stuff goes here -*- -->
+    <permission name="tud.addons.deepl: Request DeepL API" acquire="True">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+      <role name="Section Administrator"/>
+      <role name="Reviewer"/>
+      <role name="Editor"/>
+      <role name="Member"/>
+    </permission>
+  </permissions>
+</rolemap>

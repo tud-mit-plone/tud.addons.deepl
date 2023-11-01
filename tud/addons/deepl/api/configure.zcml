@@ -1,0 +1,27 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="tud.addons.deepl">
+
+    <plone:service
+        for="*"
+        method="POST"
+        accept="application/json"
+        factory=".deepl_service.DeepLTranslateService"
+        name="deepl_translate"
+        permission="tud.addons.deepl.requestDeepLAPI"
+        layer="tud.addons.deepl.interfaces.ITudAddonsDeeplLayer"
+      />
+
+    <plone:service
+        for="*"
+        method="GET"
+        accept="application/json"
+        factory=".deepl_service.DeepLTranslateServiceUsage"
+        name="deepl_usage"
+        permission="tud.addons.deepl.requestDeepLAPI"
+        layer="tud.addons.deepl.interfaces.ITudAddonsDeeplLayer"
+      />
+
+</configure>
