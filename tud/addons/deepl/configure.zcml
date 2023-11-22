@@ -8,12 +8,6 @@
 
   <i18n:registerTranslations directory="locales" />
 
-  <!--
-    Be careful if you use general includeDependencies, it can have sideffects!
-    Better import explicite packages or configurations ;)
-  -->
-  <!--<includeDependencies package="." />-->
-
   <five:registerPackage
     package             = "." />
 
@@ -47,7 +41,5 @@
       factory=".setuphandlers.HiddenProfiles"
       name="tud.addons.deepl-hiddenprofiles"
       />
-
-  <!-- -*- extra stuff goes here -*- -->
 
 </configure>
