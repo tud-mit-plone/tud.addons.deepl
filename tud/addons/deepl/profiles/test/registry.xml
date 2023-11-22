@@ -1,0 +1,10 @@
+<registry>
+    <records interface="plone.i18n.interfaces.ILanguageSchema" prefix="plone">
+        <value key="default_language">en</value>
+        <value key="use_request_negotiation">False</value>
+        <value key="available_languages">
+            <element>en</element>
+            <element>de</element>
+        </value>
+    </records>
+</registry>

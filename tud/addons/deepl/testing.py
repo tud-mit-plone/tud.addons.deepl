@@ -6,8 +6,8 @@ from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import applyProfile
-from plone.testing import z2
+from plone.testing.zope import WSGI_SERVER_FIXTURE
+from plone.testing.zope import installProduct
 import tud.addons.deepl
 
 
@@ -36,10 +36,10 @@ class TudAddonsDeeplLayer(PloneSandboxLayer):
         self.loadZCML(package=plone.rest)
 
         self.loadZCML(name="testing.zcml", package=tud.addons.deepl)
-        z2.installProduct(app, "tud.addons.deepl")
+        installProduct(app, "tud.addons.deepl")
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, "tud.addons.deepl:test")
+        self.applyProfile(portal, "tud.addons.deepl:test")
         setup_deepl_from_environment()
 
 FIXTURE = TudAddonsDeeplLayer()
@@ -61,7 +61,7 @@ TUD_ADDONS_DEEPL_ACCEPTANCE_TESTING = FunctionalTesting(
     bases=(
         FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        z2.ZSERVER_FIXTURE,
+        WSGI_SERVER_FIXTURE,
     ),
     name="TudAddonsDeeplLayer:AcceptanceTesting",
 )
