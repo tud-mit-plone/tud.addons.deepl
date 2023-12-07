@@ -47,7 +47,7 @@ class DeepLAPI(object):
             )
         except requests.exceptions.ConnectionError:
             raise DeepLAPIError("Can not connect to DeepL API URL")
-
+        
         if result.status_code == 403:
             raise DeepLAPIError("Authentication token was not accepted", result.status_code)
         elif result.status_code == 456:
@@ -55,10 +55,11 @@ class DeepLAPI(object):
                 "Translation quota exeeded",
                 result.status_code,
             )
+            
         elif not result.ok:
             raise DeepLAPIError(
-                "Deepl API request returns with an error",
-                result.status_code,
+                "Deepl API request returns with an error. Server response: " + result.text,
+                result.status_code
             )
 
         return result.json()
