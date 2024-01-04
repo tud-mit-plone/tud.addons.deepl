@@ -57,7 +57,7 @@ class DeepLAPI(object):
             )
         elif not result.ok:
             raise DeepLAPIError(
-                "Deepl API request returns with an error",
+                "Deepl API request returns with an error. Server Response: " + result.text,
                 result.status_code,
             )
 
