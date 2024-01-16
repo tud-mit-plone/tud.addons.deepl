@@ -50,7 +50,7 @@ else
 fi
 
 # Rebuild .pot
-$I18NDUDE rebuild-pot --pot locales/$CATALOGNAME.pot $MERGE --create $CATALOGNAME .
+$I18NDUDE rebuild-pot --pot locales/$CATALOGNAME.pot $MERGE --create $CATALOGNAME . --no-line-numbers
 
 
 # Compile po files
