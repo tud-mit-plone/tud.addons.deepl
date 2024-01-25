@@ -100,7 +100,7 @@ class DeepLAPI(object):
         except DeepLAPIError as e:
             return {"error": e.message, "result": None, "status_code": e.status_code}
 
-        if result.has_key("translations"):
+        if "translations" in result:
             return {"error": None, "result": result["translations"][0]["text"], "status_code": 200}
         else:
             return {"error": "Result does not contain translated text", "result": None, "status_code": 500}
