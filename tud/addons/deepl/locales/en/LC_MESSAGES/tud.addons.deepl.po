@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-01-22 13:23+0000\n"
+"POT-Creation-Date: 2024-01-26 09:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,71 +14,71 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ./adapter/deepl_api.py:55
+#: ./adapter/deepl_api.py
 msgid "Authentication token was not accepted"
 msgstr ""
 
-#: ./adapter/deepl_api.py:52
+#: ./adapter/deepl_api.py
 msgid "Can not connect to DeepL API URL"
 msgstr ""
 
-#: ./adapter/deepl_api.py:65
+#: ./adapter/deepl_api.py
 msgid "DeepL API request returns with an error. Server response:"
 msgstr ""
 
-#: ./adapter/deepl_api.py:60
+#: ./adapter/deepl_api.py
 msgid "DeepL translation quota exeeded"
 msgstr ""
 
-#: ./configure.zcml:35
+#: ./configure.zcml
 msgid "Installs the tud.addons.deepl add-on."
 msgstr ""
 
-#: ./testing.zcml:14
+#: ./testing.zcml
 msgid "Steps for tud.addons.deepl tests"
 msgstr ""
 
-#: ./adapter/deepl_api.py:57
+#: ./adapter/deepl_api.py
 msgid "Too many concurrent requests to DeepL"
 msgstr ""
 
-#: ./configure.zcml:44
+#: ./configure.zcml
 msgid "Uninstalls the tud.addons.deepl add-on."
 msgstr ""
 
 #. Default: "Authentication key for the DeepL API"
-#: ./interfaces.py:35
+#: ./interfaces.py
 msgid "deepl_api_auth_token"
 msgstr ""
 
 #. Default: "ID of the glossary"
-#: ./interfaces.py:41
+#: ./interfaces.py
 msgid "deepl_api_glossary_id"
 msgstr ""
 
 #. Default: "Connect/Read timeout for the remote connection to the DeepL API"
-#: ./interfaces.py:28
+#: ./interfaces.py
 msgid "deepl_api_timeout"
 msgstr ""
 
 #. Default: "Time in seconds; should be between 3 and 10"
-#: ./interfaces.py:29
+#: ./interfaces.py
 msgid "deepl_api_timeout_desc"
 msgstr ""
 
 #. Default: "URL of DeepL API without endpoint"
-#: ./interfaces.py:22
+#: ./interfaces.py
 msgid "deepl_api_url"
 msgstr ""
 
-#: ./configure.zcml:35
+#: ./configure.zcml
 msgid "tud.addons.deepl"
 msgstr ""
 
-#: ./configure.zcml:44
+#: ./configure.zcml
 msgid "tud.addons.deepl (uninstall)"
 msgstr ""
 
-#: ./testing.zcml:14
+#: ./testing.zcml
 msgid "tud.addons.deepl tests"
 msgstr ""
