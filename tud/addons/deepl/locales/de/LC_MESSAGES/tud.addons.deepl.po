@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-01-16 09:23+0000\n"
+"POT-Creation-Date: 2024-01-26 09:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,6 +14,22 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
+#: ./adapter/deepl_api.py
+msgid "Authentication token was not accepted"
+msgstr "Authentifizierungstoken wurde nicht akzeptiert"
+
+#: ./adapter/deepl_api.py
+msgid "Can not connect to DeepL API URL"
+msgstr "Kann keine Verbindung zur DeepL API URL aufbauen"
+
+#: ./adapter/deepl_api.py
+msgid "DeepL API request returns with an error. Server response:"
+msgstr "Die DeepL API Anfrage brachte einen Fehler. Serverantwort:"
+
+#: ./adapter/deepl_api.py
+msgid "DeepL translation quota exeeded"
+msgstr "Das DeepL Übersetzungslimit wurde überschritten"
+
 #: ./configure.zcml
 msgid "Installs the tud.addons.deepl add-on."
 msgstr ""
@@ -21,6 +37,10 @@ msgstr ""
 #: ./testing.zcml
 msgid "Steps for tud.addons.deepl tests"
 msgstr ""
+
+#: ./adapter/deepl_api.py
+msgid "Too many concurrent requests to DeepL"
+msgstr "Zu viele gleichzeitige Anfragen an DeepL"
 
 #: ./configure.zcml
 msgid "Uninstalls the tud.addons.deepl add-on."

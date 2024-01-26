@@ -4,9 +4,12 @@
 import requests
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
+from zope.globalrequest import getRequest
 from zope.interface import implements
+from zope.i18n import translate
 
 from tud.addons.deepl import logger
+from tud.addons.deepl import _
 from tud.addons.deepl.interfaces import IDeepLAPI
 from tud.addons.deepl.interfaces import IDeepLAPISettings
 
@@ -46,18 +49,22 @@ class DeepLAPI(object):
                 headers={"Authorization": auth_token},
             )
         except requests.exceptions.ConnectionError:
-            raise DeepLAPIError("Can not connect to DeepL API URL")
+            raise DeepLAPIError(_("Can not connect to DeepL API URL"))
 
         if result.status_code == 403:
-            raise DeepLAPIError("Authentication token was not accepted", result.status_code)
+            raise DeepLAPIError(_("Authentication token was not accepted"), result.status_code)
+        elif result.status_code == 429:
+            raise DeepLAPIError(_("Too many concurrent requests to DeepL"), result.status_code)
         elif result.status_code == 456:
             raise DeepLAPIError(
-                "Translation quota exeeded",
+                _("DeepL translation quota exeeded"),
                 result.status_code,
             )
+
         elif not result.ok:
+            msg = translate(_("DeepL API request returns with an error. Server response:"), context=getRequest())
             raise DeepLAPIError(
-                "Deepl API request returns with an error. Server Response: " + result.text,
+                msg + u" " + result.text,
                 result.status_code,
             )
 
@@ -93,7 +100,7 @@ class DeepLAPI(object):
         except DeepLAPIError as e:
             return {"error": e.message, "result": None, "status_code": e.status_code}
 
-        if result.has_key("translations"):
+        if "translations" in result:
             return {"error": None, "result": result["translations"][0]["text"], "status_code": 200}
         else:
             return {"error": "Result does not contain translated text", "result": None, "status_code": 500}
