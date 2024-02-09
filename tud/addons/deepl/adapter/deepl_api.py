@@ -2,6 +2,7 @@
 """DeepL API utility
 """
 import requests
+from enum import Enum
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from zope.globalrequest import getRequest
@@ -14,12 +15,16 @@ from tud.addons.deepl.interfaces import IDeepLAPI
 from tud.addons.deepl.interfaces import IDeepLAPISettings
 
 
+class RequestMethods(Enum):
+    GET = 'GET'
+    POST = 'POST'
+
 class DeepLAPI(object):
     """Utility for communicating with the DeepL API."""
 
     implements(IDeepLAPI)
 
-    def _callDeepLAPI(self, endpoint, params=None):
+    def _callDeepLAPI(self, endpoint, request_method = RequestMethods.GET, params=None):
         """Returns the result of a DeepL API call. If an error occured, it raises an DeepLAPIError.
 
         :param endpoint: endpoint that should be called
@@ -41,13 +46,23 @@ class DeepLAPI(object):
         else:
             auth_token = "DeepL-Auth-Key {}".format(auth_token)
 
+        if not isinstance(request_method, RequestMethods):
+            raise DeepLAPIError(_("Unknown request type"))
+
+        request_params = {
+            "method": request_method.value,
+            "url": "{}{}".format(api_url, endpoint),
+            "timeout": api_timeout,
+            "headers": {"Authorization": auth_token},
+        }
+
+        if request_method == RequestMethods.POST:
+            request_params["data"] = params
+        elif request_method == RequestMethods.GET:
+            request_params["params"] = params
+
         try:
-            result = requests.get(
-                "{}{}".format(api_url, endpoint),
-                params=params,
-                timeout=api_timeout,
-                headers={"Authorization": auth_token},
-            )
+            result = requests.request(**request_params)
         except requests.exceptions.ConnectionError:
             raise DeepLAPIError(_("Can not connect to DeepL API URL"))
 
@@ -80,6 +95,9 @@ class DeepLAPI(object):
         :param target_language: language into which the text should be translated
         :type target_language: str
         """
+        if not isinstance(text, list):
+            text = [text]
+
         params = dict()
         params.update(
             {
@@ -96,7 +114,7 @@ class DeepLAPI(object):
             params["glossary_id"] = settings.deepl_api_glossary_id
 
         try:
-            result = self._callDeepLAPI(endpoint="translate", params=params)
+            result = self._callDeepLAPI(endpoint="translate", request_method=RequestMethods.POST, params=params)
         except DeepLAPIError as e:
             return {"error": e.message, "result": None, "status_code": e.status_code}
 
