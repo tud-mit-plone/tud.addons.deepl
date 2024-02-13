@@ -12,10 +12,12 @@ import tud.addons.deepl
 
 
 def setup_deepl_from_environment():
-    """Setup Deepl key from environment
-    """
+    """Setup Deepl key from environment"""
     token = os.getenv("DEEPL_API_TOKEN", "")
-    api.portal.set_registry_record("tud.addons.deepl.interfaces.IDeepLAPISettings.deepl_api_auth_token", unicode(token))
+    api.portal.set_registry_record(
+        "tud.addons.deepl.interfaces.IDeepLAPISettings.deepl_api_auth_token",
+        unicode(token),
+    )
 
 
 class TudAddonsDeeplLayer(PloneSandboxLayer):
@@ -41,6 +43,7 @@ class TudAddonsDeeplLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         applyProfile(portal, "tud.addons.deepl:test")
         setup_deepl_from_environment()
+
 
 FIXTURE = TudAddonsDeeplLayer()
 

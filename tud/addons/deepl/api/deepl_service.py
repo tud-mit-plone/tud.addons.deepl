@@ -22,7 +22,9 @@ class DeepLTranslateService(Service):
             return "Error: empty text"
 
         deepl_api = getUtility(IDeepLAPI, "deeplapi")
-        result = deepl_api.translate(text=text, source_language=source_lang, target_language=target_lang)
+        result = deepl_api.translate(
+            text=text, source_language=source_lang, target_language=target_lang
+        )
 
         if result["error"]:
             if result["status_code"]:

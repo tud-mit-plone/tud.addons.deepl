@@ -32,7 +32,8 @@ class TestDeepLAPI(unittest.TestCase):
         api_url = os.getenv("DEEPL_API_URL", None)
         if api_url:
             api.portal.set_registry_record(
-                "tud.addons.deepl.interfaces.IDeepLAPISettings.deepl_api_url", unicode(api_url)
+                "tud.addons.deepl.interfaces.IDeepLAPISettings.deepl_api_url",
+                unicode(api_url),
             )
 
     def test_APIBase(self):
@@ -43,11 +44,15 @@ class TestDeepLAPI(unittest.TestCase):
     def test_translate(self):
         result = self.deepl_api.translate(text=self.word_de)
         self.assertEqual(result["result"].lower(), self.word_en.lower())
-        result = self.deepl_api.translate(text=self.word_en, source_language="en", target_language="de")
+        result = self.deepl_api.translate(
+            text=self.word_en, source_language="en", target_language="de"
+        )
         self.assertEqual(result["result"].lower(), self.word_de.lower())
         result = self.deepl_api.translate(self.html_de)
         self.assertIn("<h2>", result["result"])
-        self.assertIn('src="resolveuid/a6b054e259394687bfa4a9581f97376d"', result["result"])
+        self.assertIn(
+            'src="resolveuid/a6b054e259394687bfa4a9581f97376d"', result["result"]
+        )
 
     def test_usage(self):
         usage = self.deepl_api.usage()

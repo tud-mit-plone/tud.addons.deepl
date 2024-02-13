@@ -25,14 +25,22 @@ class IDeepLAPISettings(Interface):
     )
 
     deepl_api_timeout = schema.Float(
-        title=_(u"deepl_api_timeout", default=u"Connect/Read timeout for the remote connection to the DeepL API"),
-        description=_(u"deepl_api_timeout_desc", default=u"Time in seconds; should be between 3 and 10"),
+        title=_(
+            u"deepl_api_timeout",
+            default=u"Connect/Read timeout for the remote connection to the DeepL API",
+        ),
+        description=_(
+            u"deepl_api_timeout_desc",
+            default=u"Time in seconds; should be between 3 and 10",
+        ),
         required=True,
         default=10.0,
     )
 
     deepl_api_auth_token = schema.TextLine(
-        title=_(u"deepl_api_auth_token", default=u"Authentication key for the DeepL API"),
+        title=_(
+            u"deepl_api_auth_token", default=u"Authentication key for the DeepL API"
+        ),
         required=True,
         default=u"",
     )
