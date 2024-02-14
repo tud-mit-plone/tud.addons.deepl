@@ -2,7 +2,6 @@
 """DeepL API utility
 """
 import requests
-from enum import Enum
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from zope.globalrequest import getRequest
@@ -15,9 +14,12 @@ from tud.addons.deepl.interfaces import IDeepLAPI
 from tud.addons.deepl.interfaces import IDeepLAPISettings
 
 
-class RequestMethods(Enum):
+class RequestMethods(object):
+    """Emulate sort of an enum. Provide ALL to replace the isinstance check."""
+    # TODO: solve this as enum in py3 and use 'isinstance' instead 'in' for checks
     GET = "GET"
     POST = "POST"
+    ALL = ["GET", "POST"]
 
 
 class DeepLAPI(object):
@@ -47,11 +49,11 @@ class DeepLAPI(object):
         else:
             auth_token = "DeepL-Auth-Key {}".format(auth_token)
 
-        if not isinstance(request_method, RequestMethods):
+        if request_method not in RequestMethods.ALL:
             raise DeepLAPIError(_("Unknown request type"))
 
         request_params = {
-            "method": request_method.value,
+            "method": request_method,
             "url": "{}{}".format(api_url, endpoint),
             "timeout": api_timeout,
             "headers": {"Authorization": auth_token},
