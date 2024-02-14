@@ -32,6 +32,8 @@ class DeepLAPI(object):
 
         :param endpoint: endpoint that should be called
         :type endpoint: str
+        :param request_method: request method to use (POST/GET)
+        :type request_method: str
         :param params: arguments that should be send to the endpoint
         :type params: dict
         """
@@ -125,6 +127,7 @@ class DeepLAPI(object):
 
         try:
             result = self._callDeepLAPI(
+                # use POST for translation calls to avoid the url-length-textsize-cap
                 endpoint="translate", request_method=RequestMethods.POST, params=params
             )
         except DeepLAPIError as e:
