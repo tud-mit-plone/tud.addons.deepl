@@ -97,7 +97,7 @@ This endpoint gives you insight about the current character usage according to y
 A potential curl command would look this:
 
 ```bash
-curl --location 'http://localhost:8080/TUDBaumpate/deepl_usage' \
+curl --location 'http://localhost:8080/Site/deepl_usage' \
 --header 'Accept: application/json' \
 ```
 
@@ -107,7 +107,7 @@ The response is returned as JSON:
 {"status_code": 200, "result": {"character_count": 123, "character_limit": 500000}, "error": null}
 ```
 
-> **_NOTE:_**  The status code in the JSON is identical to the actual HTTP response code.
+> **_NOTE:_**  The status code in the JSON structure is identical to the actual HTTP response code.
 
 ## Permissions
 
